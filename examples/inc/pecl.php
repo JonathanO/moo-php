@@ -1,8 +1,8 @@
 <?php
 
-function getClient($key, $secret)
+function getClient($key, $secret, $endpoint)
 {
-    $client = new \MooPhp\Client\OAuthSigningClient($key, $secret);
+    $client = new \MooPhp\Client\OAuthSigningClient($key, $secret, null, $endpoint);
     /*
     // If we want to do three legged we'd need to jump about a bit.
     // Since most of the API calls no longer need 3 legged, this block of code is not required.

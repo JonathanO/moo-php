@@ -52,16 +52,22 @@ class LusitanianDirectOauthClient implements Client, LoggerAwareInterface
      */
     protected $_uri;
 
-    public function __construct($apiKey, $apiSecret, LoggerInterface $logger = null)
+    public function __construct($apiKey, $apiSecret, LoggerInterface $logger = null, $endpoint = null)
     {
         $this->_credentials = new Credentials($apiKey, $apiSecret, "oob"); // Lie about oob, we don't need callback.
         $this->_signature = new Signature($this->_credentials);
         $this->_signature->setHashingAlgorithm($this->_signatureMethod);
+
+        if (isset($endpoint)) {
+            $this->_endpoint = $endpoint;
+        }
+
         $this->_uri = new Uri($this->_endpoint);
 
         if (isset($logger)) {
             $this->setLogger($logger);
         }
+
 
         $this->_ch = curl_init();
         curl_setopt($this->_ch, CURLOPT_SSL_VERIFYPEER, false); // Why do we need to do this?!

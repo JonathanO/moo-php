@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
 
 // You installed this with composer, right?
 $loader = require __DIR__ . '/../vendor/autoload.php';
-$opts = getopt("k:s:w:t:");
+$opts = getopt("k:s:w:t:e:");
 
 if (!isset($opts["k"]) || !isset($opts['s'])) {
     die("Need to provide key and secret.");
@@ -29,6 +29,11 @@ if (!isset($opts["t"])) {
     $clientType = "guzzle";
 } else {
     $clientType = $opts['t'];
+}
+
+$endpoint = null;
+if (isset($opts["e"])) {
+    $endpoint = $opts["e"];
 }
 
 $localWeasel = getenv("USE_LOCAL_WEASEL");
@@ -43,7 +48,7 @@ $secret = $opts['s'];
  * Require the client we're going to be using.
  */
 require_once(__DIR__ . "/inc/" . $clientType . ".php");
-$client = getClient($key, $secret);
+$client = getClient($key, $secret, $endpoint);
 
 $api = new \MooPhp\Api($client);
 $weaselFactory = new \Weasel\WeaselDoctrineAnnotationDrivenFactory();

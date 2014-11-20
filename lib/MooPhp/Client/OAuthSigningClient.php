@@ -39,7 +39,7 @@ class OAuthSigningClient implements Client, LoggerAwareInterface
     );
 
 
-    public function __construct($apiKey, $apiSecret, LoggerInterface $logger = null)
+    public function __construct($apiKey, $apiSecret, LoggerInterface $logger = null, $endpoint = null)
     {
         $this->_apiKey = $apiKey;
         $this->_apiSecret = $apiSecret;
@@ -48,6 +48,9 @@ class OAuthSigningClient implements Client, LoggerAwareInterface
 
         if (isset($logger)) {
             $this->setLogger($logger);
+        }
+        if (isset($endpoint)) {
+            $this->_urls["apiEndpoint"] = $endpoint;
         }
 
         $this->_ch = curl_init();

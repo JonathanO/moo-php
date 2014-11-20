@@ -23,10 +23,13 @@ class GuzzleClient implements Client, LoggerAwareInterface
      */
     private $client;
 
-    public function __construct(GuzzleHttpClient $client, LoggerInterface $logger = null)
+    public function __construct(GuzzleHttpClient $client, LoggerInterface $logger = null, $endpoint = null)
     {
         if (isset($logger)) {
             $this->setLogger($logger);
+        }
+        if (isset($endpoint)) {
+            $this->endpoint = $endpoint;
         }
         $this->client = $client;
     }

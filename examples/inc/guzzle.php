@@ -1,6 +1,6 @@
 <?php
 
-function getClient($key, $secret)
+function getClient($key, $secret, $endpoint = null)
 {
     $guzzle = new \Guzzle\Http\Client();
     $oauthPlugin = new \MooPhp\Client\Guzzle\ReconfigurableOauthPlugin(
@@ -30,6 +30,6 @@ function getClient($key, $secret)
     $oauthPlugin->setTokenData($tokenData);
     */
 
-    return new \MooPhp\Client\GuzzleClient($guzzle);
+    return new \MooPhp\Client\GuzzleClient($guzzle, null, $endpoint);
 }
 

@@ -1,5 +1,5 @@
 <?php
-function getClient($key, $secret)
+function getClient($key, $secret, $endpoint)
 {
-    return new \MooPhp\Client\Lusitanian\LusitanianDirectOauthClient($key, $secret);
+    return new \MooPhp\Client\Lusitanian\LusitanianDirectOauthClient($key, $secret, null, $endpoint);
 }
